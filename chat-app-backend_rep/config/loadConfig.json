@@ -1,0 +1,18 @@
+{
+    "sourcePort": 80,
+    "balancerCount": 1,
+    "targetDeactivationDuration": 60000,
+    "sessionExpiry": 30000,
+        "targets": [
+      {
+        "host": "localhost",
+        "port": 5000
+      },
+      {
+        "host": "localhost",
+        "port": 5001
+      },
+	{"command":"loadbalancer start --config my/path/config.json"},
+    ]
+  }
+

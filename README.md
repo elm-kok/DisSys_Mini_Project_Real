@@ -15,3 +15,5 @@ https://github.com/ozps/chat-app-backend
 sudo mv chat-app-backend/nginx.conf /etc/nginx/nginx.conf
 
 sudo systemctl restart nginx.service  
+
+#web chat, socket io, nodejs, react, mongodb, nginx

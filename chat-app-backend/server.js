@@ -102,14 +102,18 @@ const deleteJoin = async (username, roomID) => {
 }
 
 io.on('connection', socket => {
-    console.log('connected-->')
-    Message.find({ message:'*#Join' }, (error, messages) => {
-        console.log('sdfgdfg')
-        for(let m of messages){
-            console.log(m.roomID)
-            socket.join(m.roomID)
-        }
-    })
+    console.log('connected-->', socket.id)
+    socket.emit('user')
+    socket.on('userres', username => {
+        Message.find({ username, message: '*#Join', }, (error, messages) => {
+            console.log('user->', username)
+            for (let m of messages) {
+                console.log(m.roomID)
+                socket.join(m.roomID)
+            }
+        })
+    }
+    )
 
 
     socket.on('register', async username => {
@@ -125,7 +129,7 @@ io.on('connection', socket => {
         const msg = new Message({
             username: username,
             roomID: roomID,
-            message: content
+            message: content,
         })
         await msg.save()
         message.timestamp = await msg.createdAt

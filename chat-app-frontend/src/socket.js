@@ -3,6 +3,14 @@ const io = require('socket.io-client')
 export default function () {
     const socket = io.connect('http://172.20.10.13:80')
 
+    function userRequestHandler(onMessageReceived) {
+        socket.on('user', onMessageReceived)
+    }
+
+    function sendUser(username) {
+        socket.emit('userres', username);
+    }
+
     function registerHandler(onMessageReceived) {
         socket.on('message', onMessageReceived)
     }
@@ -56,6 +64,8 @@ export default function () {
     //function newGroup(cb)
 
     return {
+        userRequestHandler,
+        sendUser,
         register,
         join,
         leave,
